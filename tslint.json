@@ -1,0 +1,25 @@
+{
+  "rulesDirectory": ["tslint-consistent-codestyle", "tslint-eslint-rules"],
+  "rules": {
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "no-var-keyword": true,
+    "no-var-requires": true,
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "curly": true,
+    "no-require-imports": true,
+    "semicolon": true,
+    "triple-equals": true,
+    "no-shadowed-variable": true,
+    "no-switch-case-fall-through": true,
+    "no-unused-expression": true,
+    "no-trailing-whitespace": true,
+    "switch-default": false,
+    "eofline": true
+  }
+}

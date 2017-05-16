@@ -1,0 +1,44 @@
+{
+  "name": "sinon-typed",
+  "version": "0.0.1",
+  "description": "Nicer stubbing in a TypeScript environment",
+  "keywords": ["sinon", "typescript", "mocking", "stubbing"],
+  "main": "out/index.js",
+  "scripts": {
+    "build": "npm run compile && npm run lint && npm run fmt",
+    "compile": "tsc",
+    "pretest": "npm run build",
+    "test": "npm run test-only",
+    "test-only": "mocha --require ts-node/register `find ./lib -name '*-spec.ts' -print`",
+    "fmt": "tsfmt -r",
+    "lint": "tslint --project './tsconfig.json' --type-check -c tslint.json 'lib/**/*.ts'"
+  },
+  "author": "Luciano Leggieri",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/lukiano/sinon-typed/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lukiano/sinon-typed.git"
+  },
+  "peerDependencies": {
+    "sinon": "^2.2.0",
+    "@types/sinon": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.5.2",
+    "@types/mocha": "^2.2.41",
+    "@types/sinon": "^2.2.1",
+    "chai": "^3.5.0",
+    "mocha": "^3.4.1",
+    "sinon": "^2.2.0",
+    "ts-node": "^3.0.4",
+    "tslint": "^5.2.0",
+    "tslint-consistent-codestyle": "^1.3.0",
+    "tslint-eslint-rules": "^4.0.0",
+    "typescript": "^2.3.2",
+    "typescript-formatter": "^5.2.0"
+  },
+  "typings": "./out/index.d.ts"
+}
