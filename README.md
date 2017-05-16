@@ -1,5 +1,4 @@
-# Sinon Typed
-
+# Sinon Typed [![Build Status](https://travis-ci.org/lukiano/sinon-typed.svg?branch=master)](https://travis-ci.org/lukiano/sinon-typed) [![Coverage Status](https://coveralls.io/repos/github/lukiano/sinon-typed/badge.svg?branch=master)](https://coveralls.io/github/lukiano/sinon-typed?branch=master)
 ```bash
 npm install --save-dev sinon
 npm install --save-dev @types/sinon
