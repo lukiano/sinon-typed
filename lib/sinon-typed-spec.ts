@@ -11,7 +11,7 @@ describe('SinonTyped', () => {
 
   describe('mock', () => {
 
-    it('mocks methods', () => {
+    it('methods', () => {
       const testMock: Mock<Test> = SinonTyped.mock<Test>();
       const expectation = testMock.control.expects('aMethod').withArgs('value1').once();
       expectation.returns('result1');
@@ -20,7 +20,7 @@ describe('SinonTyped', () => {
       expectation.verify();
     });
 
-    it('mocks methods when on a sandbox', () => {
+    it('methods when on a sandbox', () => {
       const sandbox = sinon.sandbox.create();
       const testMock: Mock<Test> = SinonTyped.mock<Test>(sandbox);
       const expectation = testMock.control.expects('aMethod').withArgs('value1').once();
@@ -35,21 +35,24 @@ describe('SinonTyped', () => {
 
   describe('stub', () => {
 
-    it('stub methods', () => {
+    it('methods', () => {
       const testStub = SinonTyped.stub<Test>();
-      testStub.stubMethod('aMethod')
-        .withArgs('value2').returns('result2')
-        .withArgs('value3').returns('result3');
+      const stubMethod1 = testStub.stubMethod('aMethod');
+      const stubMethod2 = testStub.stubMethod('aMethod');
+      stubMethod1.withArgs('value2').returns('result2');
+      stubMethod2.withArgs('value3').returns('result3');
+      expect(stubMethod1).to.equals(stubMethod2);
       expect(testStub.object.aMethod('value2')).to.equals('result2');
       expect(testStub.object.aMethod('value3')).to.equals('result3');
     });
 
-    it('stub methods when on a sandbox', () => {
+    it('methods when on a sandbox', () => {
       const sandbox = sinon.sandbox.create();
       const testStub = SinonTyped.stub<Test>(sandbox);
       testStub.stubMethod('aMethod')
         .withArgs('value2').returns('result2')
         .withArgs('value3').returns('result3');
+
       expect(testStub.object.aMethod('value2')).to.equals('result2');
       expect(testStub.object.aMethod('value3')).to.equals('result3');
       sandbox.restore();
@@ -57,13 +60,13 @@ describe('SinonTyped', () => {
       expect(testStub.object.aMethod('value3')).to.equals(undefined);
     });
 
-    it('stub properties', () => {
+    it('properties', () => {
       const testStub = SinonTyped.stub<Test>();
       testStub.stubProperty('aProperty').returns(42);
       expect(testStub.object.aProperty).to.equals(42);
     });
 
-    it('stub properties when on a sandbox', () => {
+    it('properties when on a sandbox', () => {
       const sandbox = sinon.sandbox.create();
       const testStub = SinonTyped.stub<Test>(sandbox);
       testStub.stubProperty('aProperty').returns(42);
@@ -74,4 +77,11 @@ describe('SinonTyped', () => {
 
   });
 
+  describe('partially stub', () => {
+
+    it('half-baked objects', () => {
+      const test = SinonTyped.partially<Test>({ aProperty: 100 });
+      expect(test.aProperty).to.equals(100);
+    });
+  });
 });

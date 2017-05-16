@@ -1,17 +1,26 @@
 {
   "name": "sinon-typed",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Nicer stubbing in a TypeScript environment",
-  "keywords": ["sinon", "typescript", "mocking", "stubbing"],
+  "keywords": [
+    "sinon",
+    "typescript",
+    "mocking",
+    "stubbing"
+  ],
   "main": "out/index.js",
   "scripts": {
     "build": "npm run compile && npm run lint && npm run fmt",
     "compile": "tsc",
     "pretest": "npm run build",
     "test": "npm run test-only",
-    "test-only": "mocha --require ts-node/register `find ./lib -name '*-spec.ts' -print`",
+    "test-ts": "mocha --require ts-node/register `find ./lib -name '*-spec.ts' -print`",
+    "test-only": "mocha `find ./out -name '*-spec.js' -print`",
     "fmt": "tsfmt -r",
-    "lint": "tslint --project './tsconfig.json' --type-check -c tslint.json 'lib/**/*.ts'"
+    "lint": "tslint --project './tsconfig.json' --type-check -c tslint.json 'lib/**/*.ts'",
+    "precoverage": "npm run build",
+    "coverage": "node node_modules/istanbul/lib/cli.js cover -e .js -x '*-spec.js' _mocha -- `find ./out -name '*-spec.js' -print`",
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
   },
   "author": "Luciano Leggieri",
   "license": "BSD-3-Clause",
@@ -31,6 +40,8 @@
     "@types/mocha": "^2.2.41",
     "@types/sinon": "^2.2.1",
     "chai": "^3.5.0",
+    "coveralls": "^2.13.1",
+    "istanbul": "1.1.0-alpha.1",
     "mocha": "^3.4.1",
     "sinon": "^2.2.0",
     "ts-node": "^3.0.4",
