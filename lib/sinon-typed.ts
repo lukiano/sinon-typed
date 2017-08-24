@@ -32,7 +32,7 @@ export class SinonTyped {
 
   static partiallyStub<T extends object>(partial: Partial<T>, sandbox?: sinon.SinonSandbox): Stub<T> {
     const stubT = SinonTyped.stub<T>(sandbox);
-    Object.keys(partial).map(key => stubT.stubProperty(key as keyof T).returns(partial[key]));
+    Object.keys(partial).map((key) => stubT.stubProperty(key as keyof T).returns(partial[key]));
     return stubT;
   }
 
@@ -96,14 +96,14 @@ class StubImpl<T extends object> implements Stub<T> {
     if (this._sandbox) {
       return {
         returns: (value: T[K]) => {
-          this.stub[property] = this._sandbox!.stub(this.object, property, value);
+          this.stub[property] = this._sandbox!.stub(this.object, property).value(value);
         }
       };
     } else {
       return {
         returns: (value: T[K]) => {
           this.stub[property] = sinon.stub(this.object, property);
-          (<any>this.stub[property]).get(() => value);
+          this.stub[property].value(value);
         }
       };
     }

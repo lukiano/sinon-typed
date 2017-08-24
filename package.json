@@ -1,6 +1,6 @@
 {
   "name": "sinon-typed",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Nicer stubbing in a TypeScript environment",
   "keywords": [
     "sinon",
@@ -17,7 +17,7 @@
     "test-ts": "mocha --require ts-node/register `find ./lib -name '*-spec.ts' -print`",
     "test-only": "mocha `find ./out -name '*-spec.js' -print`",
     "fmt": "tsfmt -r",
-    "lint": "tslint --project './tsconfig.json' --type-check -c tslint.json 'lib/**/*.ts'",
+    "lint": "tslint --project './tsconfig.json' --type-check -c tslint.json",
     "precoverage": "npm run build",
     "coverage": "node node_modules/istanbul/lib/cli.js cover -e .js -x '*-spec.js' _mocha -- `find ./out -name '*-spec.js' -print`",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
@@ -32,8 +32,9 @@
     "url": "https://github.com/lukiano/sinon-typed.git"
   },
   "peerDependencies": {
+    "@types/sinon": "^2.2.0",
     "sinon": "^2.2.0",
-    "@types/sinon": "^2.2.0"
+    "typescript": "^2.3.0"
   },
   "devDependencies": {
     "@types/chai": "^3.5.2",
@@ -48,7 +49,8 @@
     "tslint": "^5.2.0",
     "tslint-consistent-codestyle": "^1.3.0",
     "tslint-eslint-rules": "^4.0.0",
-    "typescript": "^2.3.2",
+    "tslint-microsoft-contrib": "^5.0.1",
+    "typescript": "^2.3.0",
     "typescript-formatter": "^5.2.0"
   },
   "typings": "./out/index.d.ts"
