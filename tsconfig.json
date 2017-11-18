@@ -11,7 +11,7 @@
     "noUnusedParameters": true,
     "outDir": "out",
     "rootDir": "lib",
-    "strictNullChecks": true,
+    "strict": true,
     "sourceMap": true
   },
   "formatCodeOptions": {

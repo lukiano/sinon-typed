@@ -1,6 +1,6 @@
 {
   "name": "sinon-typed",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Nicer stubbing in a TypeScript environment",
   "keywords": [
     "sinon",
@@ -32,26 +32,26 @@
     "url": "https://github.com/lukiano/sinon-typed.git"
   },
   "peerDependencies": {
-    "@types/sinon": "^2.2.0",
+    "@types/sinon": ">= 2",
     "sinon": ">= 2",
     "typescript": "^2.3.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.0.0",
-    "@types/mocha": "^2.2.43",
-    "@types/sinon": "^2.3.6",
+    "@types/chai": "^4.0.5",
+    "@types/mocha": "^2.2.44",
+    "@types/sinon": "^4.0.0",
     "chai": "^4.0.0",
-    "coveralls": "^2.13.3",
+    "coveralls": "^3.0.0",
     "istanbul": "1.1.0-alpha.1",
     "mocha": "^4.0.0",
-    "sinon": "^4.0.0",
-    "ts-node": "^3.0.4",
+    "sinon": "^4.1.2",
+    "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
-    "tslint-consistent-codestyle": "^1.8.0",
-    "tslint-eslint-rules": "^4.0.0",
+    "tslint-consistent-codestyle": "^1.10.0",
+    "tslint-eslint-rules": "^4.1.1",
     "tslint-microsoft-contrib": "^5.0.1",
-    "typescript": "^2.5.3",
-    "typescript-formatter": "^6.0.0"
+    "typescript": "^2.6.1",
+    "typescript-formatter": "^7.0.0"
   },
   "typings": "./out/index.d.ts"
 }

@@ -60,7 +60,7 @@ class MockImpl<T extends object> implements Mock<T> {
 
     }
 
-    const expects: (s: String) => sinon.SinonExpectation = this.control.expects;
+    const expects: (s: string) => sinon.SinonExpectation = this.control.expects;
 
     // creates a dummy method before mocking it.
     this.control.expects = (method: keyof T) => {
