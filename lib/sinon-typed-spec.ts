@@ -21,7 +21,7 @@ describe('SinonTyped', () => {
     });
 
     it('methods when on a sandbox', () => {
-      const sandbox = sinon.sandbox.create();
+      const sandbox = sinon.createSandbox();
       const testMock: Mock<Test> = SinonTyped.mock<Test>(sandbox);
       const expectation = testMock.control.expects('aMethod').withArgs('value1').once();
       expectation.returns('result1');
@@ -47,7 +47,7 @@ describe('SinonTyped', () => {
     });
 
     it('methods when on a sandbox', () => {
-      const sandbox = sinon.sandbox.create();
+      const sandbox = sinon.createSandbox();
       const testStub = SinonTyped.stub<Test>(sandbox);
       testStub.stubMethod('aMethod')
         .withArgs('value2').returns('result2')
@@ -67,7 +67,7 @@ describe('SinonTyped', () => {
     });
 
     it('properties when on a sandbox', () => {
-      const sandbox = sinon.sandbox.create();
+      const sandbox = sinon.createSandbox();
       const testStub = SinonTyped.stub<Test>(sandbox);
       testStub.stubProperty('aProperty').returns(42);
       expect(testStub.object.aProperty).to.equals(42);
