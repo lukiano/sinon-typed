@@ -34,7 +34,10 @@ export class SinonTyped {
     const stubT = SinonTyped.stub<T>(sandbox);
     for (const key of Object.keys(partial)) {
       const typedKey = key as keyof T;
-      stubT.stubProperty(typedKey).returns(partial[typedKey]);
+      const value: T[keyof T] | undefined = partial[typedKey];
+      if (value) {
+        stubT.stubProperty(typedKey).returns(value);
+      }
     }
     return stubT;
   }
@@ -65,8 +68,7 @@ class MockImpl<T extends object> implements Mock<T> {
     // creates a dummy method before mocking it.
     this.control.expects = (method: keyof T) => {
       if (!this.object.hasOwnProperty(method)) {
-        const dummy: () => void = () => undefined;
-        this.object[method] = dummy;
+        createDummyMethod(this.object, method);
       }
       return expects.bind(this.control)(method);
     };
@@ -84,8 +86,7 @@ class StubImpl<T extends object> implements Stub<T> {
 
   public stubMethod(method: keyof T): sinon.SinonStub {
     if (!this.stub.hasOwnProperty(method)) {
-      const dummy: () => void = () => undefined;
-      this.object[method] = dummy;
+      createDummyMethod(this.object, method);
       this.stub[method] = this._stub(method);
     }
     return this.stub[method];
@@ -95,7 +96,7 @@ class StubImpl<T extends object> implements Stub<T> {
     if (this.stub.hasOwnProperty(property)) {
       this.stub[property].resetBehavior();
     }
-    this.object[property] = undefined;
+    this.object[property] = undefined as any; // tslint:disable-line:no-any
     if (this._sandbox) {
       return {
         returns: (value: T[K]) => {
@@ -118,4 +119,9 @@ class StubImpl<T extends object> implements Stub<T> {
     }
     return sinon.stub(this.object, method);
   }
+}
+
+function createDummyMethod<T>(t: T, method: keyof T): void {
+  const dummy: () => void = () => undefined;
+  t[method] = dummy as any; // tslint:disable-line:no-any
 }
