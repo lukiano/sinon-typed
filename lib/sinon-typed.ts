@@ -63,12 +63,12 @@ class MockImpl<T extends object> implements Mock<T> {
 
     }
 
-    const expects: (s: string) => sinon.SinonExpectation = this.control.expects;
+    const expects = this.control.expects;
 
     // creates a dummy method before mocking it.
-    this.control.expects = (method: keyof T) => {
+    this.control.expects = (method: string) => {
       if (!this.object.hasOwnProperty(method)) {
-        createDummyMethod(this.object, method);
+        createDummyMethod(this.object, method as keyof T);
       }
       return expects.bind(this.control)(method);
     };
@@ -96,16 +96,19 @@ class StubImpl<T extends object> implements Stub<T> {
     if (this.stub.hasOwnProperty(property)) {
       this.stub[property].resetBehavior();
     }
-    this.object[property] = undefined as any; // tslint:disable-line:no-any
+
     if (this._sandbox) {
+      const sb = this._sandbox;
       return {
         returns: (value: T[K]) => {
-          this.stub[property] = this._sandbox!.stub(this.object, property).value(value);
+          this.object[property] = undefined as any; // tslint:disable-line:no-any
+          this.stub[property] = sb.stub(this.object, property).value(value);
         }
       };
     } else {
       return {
         returns: (value: T[K]) => {
+          this.object[property] = undefined as any; // tslint:disable-line:no-any
           this.stub[property] = sinon.stub(this.object, property);
           this.stub[property].value(value);
         }
@@ -122,6 +125,5 @@ class StubImpl<T extends object> implements Stub<T> {
 }
 
 function createDummyMethod<T>(t: T, method: keyof T): void {
-  const dummy: () => void = () => undefined;
-  t[method] = dummy as any; // tslint:disable-line:no-any
+  t[method] = (() => undefined) as any; // tslint:disable-line:no-any
 }
