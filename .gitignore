@@ -4,3 +4,4 @@ build/
 coverage/
 .coveralls.yml
 out/
+.nyc_output
